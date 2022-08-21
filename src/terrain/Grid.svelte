@@ -1,14 +1,12 @@
 <script lang="ts">
-  export let width: number = 15;
-  export let height: number = 8;
-
+  import { gridSize } from '../data/store';
   import Cell from './Cell.svelte'
 </script>
 
 <div class="grid">
-  {#each Array.from(Array(height).keys()) as y}
+  {#each Array.from(Array($gridSize.y).keys()) as y}
     <div class="row">
-      {#each Array.from(Array(width).keys()) as x}
+      {#each Array.from(Array($gridSize.x).keys()) as x}
         <Cell />
       {/each}
     </div>
@@ -20,7 +18,10 @@
 <style>
   .grid {
     display: flex;
-    flex-direction: column;;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
   }
 
   .row {

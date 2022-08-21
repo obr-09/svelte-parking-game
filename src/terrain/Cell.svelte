@@ -1,11 +1,15 @@
 <script context="module" lang="ts">
-  export const CELL_WIDTH: number = 4;
+  import { cellWidth } from '../data/selectors';
 </script>
 
 <div
   class="cell"
-  style="width: {CELL_WIDTH}rem; height: {CELL_WIDTH}rem;"
+  style="
+    width: {cellWidth}vw;
+    padding-bottom: {cellWidth}vw;
+  "
 >
+<div></div>
 </div>
 
 <style>
