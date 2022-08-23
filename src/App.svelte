@@ -1,13 +1,7 @@
 <script lang="ts">
-import type { DogPlacement } from './data/models';
-
-  const dogsData: DogPlacement[] = [
-    { x: 6, y: 1, width: 1, height: 3 },
-    { x: 2, y: 4, width: 3, height: 1 },
-  ];
-
+  import { otherDogs, rocketDog } from './data/store';
   import Dog from './entities/Dog.svelte';
-  import Grid from './terrain/Grid.svelte'
+  import Grid from './terrain/Grid.svelte';
 </script>
 
 <main>
@@ -15,10 +9,12 @@ import type { DogPlacement } from './data/models';
   </Grid>
   <div class="dog-container">
     <!-- My (rocket) dog -->
-    <Dog placement={{x: 2, y: 2, width: 2, height: 1}} isRocketDog />
+    {#if $rocketDog}
+      <Dog bind:placement={$rocketDog} isRocketDog />
+    {/if}
     <!-- Other people's dogs -->
-    {#each dogsData as dogData }
-      <Dog placement={dogData} />
+    {#each $otherDogs as otherDog }
+      <Dog bind:placement={otherDog} />
     {/each}
   </div>
 </main>
