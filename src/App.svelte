@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { otherDogs, rocketDog } from './data/store';
+  import { goal, isGoalReached, otherDogs, rocketDog } from './data/store';
   import Dog from './entities/Dog.svelte';
+  import Goal from './terrain/Goal.svelte';
   import Grid from './terrain/Grid.svelte';
 </script>
 
@@ -12,10 +13,15 @@
     {#if $rocketDog}
       <Dog bind:placement={$rocketDog} isRocketDog />
     {/if}
+    {#if $goal}
+      <Goal bind:placement={$goal} />
+    {/if}
     <!-- Other people's dogs -->
     {#each $otherDogs as otherDog }
       <Dog bind:placement={otherDog} />
     {/each}
+
+    {$isGoalReached}
   </div>
 </main>
 

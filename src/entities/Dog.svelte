@@ -23,23 +23,6 @@
     removeEventListener('mousemove', onDogMove);
   });
 
-  const computeMovementLimits = (): void => {
-    movementLimits = { x1: placement.x, x2: placement.x, y1: placement.y, y2: placement.y };
-    if (placement.width > 1) {
-      while (movementLimits.x1 - 1 >= 0 && !$gridOccupiedSpace[movementLimits.y1][movementLimits.x1 - 1])
-        movementLimits.x1--;
-      while (movementLimits.x2 + placement.width < $gridSize.x && !$gridOccupiedSpace[movementLimits.y1][movementLimits.x2 + placement.width])
-        movementLimits.x2++;
-    }
-
-    if (placement.height > 1) {
-      while (movementLimits.y1 - 1 >= 0 && !$gridOccupiedSpace[movementLimits.y1 - 1][movementLimits.x1])
-        movementLimits.y1--;
-      while (movementLimits.y2 + placement.height < $gridSize.y && !$gridOccupiedSpace[movementLimits.y2 + placement.height][movementLimits.x1])
-        movementLimits.y2++;
-    }
-  };
-
   const onDogHold = () => {
     isDogBeingWalked = true;
     computeMovementLimits();
@@ -62,6 +45,23 @@
       };
     }
   };
+
+  const computeMovementLimits = (): void => {
+    movementLimits = { x1: placement.x, x2: placement.x, y1: placement.y, y2: placement.y };
+    if (placement.width > 1) {
+      while (movementLimits.x1 - 1 >= 0 && !$gridOccupiedSpace[movementLimits.y1][movementLimits.x1 - 1])
+        movementLimits.x1--;
+      while (movementLimits.x2 + placement.width < $gridSize.x && !$gridOccupiedSpace[movementLimits.y1][movementLimits.x2 + placement.width])
+        movementLimits.x2++;
+    }
+
+    if (placement.height > 1) {
+      while (movementLimits.y1 - 1 >= 0 && !$gridOccupiedSpace[movementLimits.y1 - 1][movementLimits.x1])
+        movementLimits.y1--;
+      while (movementLimits.y2 + placement.height < $gridSize.y && !$gridOccupiedSpace[movementLimits.y2 + placement.height][movementLimits.x1])
+        movementLimits.y2++;
+    }
+  };
 </script>
 
 <div 
@@ -82,9 +82,9 @@
     background: sandybrown;
     border: 1px solid peru;
     box-sizing: border-box;
-    margin: auto;
     transform: translate(-50%, -50%);
-  } 
+    z-index: 1;
+  }
 
   .dog.rocket {
     background: crimson;
