@@ -1,8 +1,18 @@
 <script lang="ts">
-  import { goal, isGoalReached, otherDogs, rocketDog } from '../data/store';
+  import { onMount } from 'svelte';
+  import type { LevelSettings } from '../data/models';
+  import { goal, gridSize, isGoalReached, otherDogs, rocketDog } from '../data/store';
   import Dog from './Dog.svelte';
   import Goal from './Goal.svelte';
   import Grid from './Grid.svelte';
+
+  export let levelSettings: LevelSettings;
+
+  onMount(() => {
+    $gridSize= levelSettings.gridSize;
+    $rocketDog = levelSettings.rocketDog;
+    $otherDogs = levelSettings.otherDogs;
+  })
 </script>
 
 <div class="game">

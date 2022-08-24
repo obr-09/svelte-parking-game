@@ -21,3 +21,9 @@ export interface MovementLimits {
   y1: number;
   y2: number;
 }
+
+export interface LevelSettings {
+  gridSize: GridData;
+  rocketDog: DogPlacement;
+  otherDogs: DogPlacement[];
+}
