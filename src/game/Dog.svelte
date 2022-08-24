@@ -13,7 +13,6 @@
   let movementCoordinates: Coordinates = { x: (placement.x + placement.width/2) * $cellWidth, y: (placement.y + placement.height/2) * $cellWidth };
 
 
-
   onMount(() => {
     addEventListener('mouseup', onDogRelease);
     addEventListener('mousemove', onDogMove);

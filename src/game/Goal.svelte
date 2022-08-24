@@ -1,9 +1,25 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import type { DogPlacement } from "../data/models";
-  import { cellWidth } from "../data/store";
-
+  import { cellWidth, isGoalReached } from "../data/store";
 
   export let placement: DogPlacement;
+
+  let barkAudios: HTMLAudioElement[];
+
+
+  onMount(() => {
+    isGoalReached.subscribe(barkVictory)
+  })
+
+  const barkVictory = (isReached: boolean): void => {
+    if (isReached) {
+      if (!barkAudios?.length)
+        barkAudios = [new Audio('bark.ogg'), new Audio('bark.ogg')];
+      barkAudios[0].play();
+      setTimeout(() => barkAudios[1].play(), 320);
+    }
+  };
 </script>
 
 <div 
@@ -14,7 +30,8 @@
     width: {placement.width * $cellWidth}px;
     height: {placement.height * $cellWidth}px;
   "
-/>
+>
+</div>
 
 <style>
   .goal {
