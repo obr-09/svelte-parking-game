@@ -24,6 +24,8 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    position: relative;
+    margin: auto;
     padding: 8px;
     width: fit-content;
   }

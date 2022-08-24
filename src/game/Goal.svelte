@@ -22,5 +22,6 @@
     box-sizing: border-box;
     transform: translate(-50%, -50%);
     background: lightcoral;
+    pointer-events: none;
   }
 </style>

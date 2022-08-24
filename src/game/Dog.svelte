@@ -3,7 +3,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import type { Coordinates, DogPlacement, MovementLimits } from "../data/models";
-  import { cellWidth, gridOccupiedSpace, gridSize } from "../data/store";
+  import { cellWidth, gridOccupiedSpace, gridSize, isThereDogBeingWalked } from "../data/store";
 
   export let placement: DogPlacement;
   export let isRocketDog: boolean = false;
@@ -24,24 +24,28 @@
   });
 
   const onDogHold = () => {
-    isDogBeingWalked = true;
-    computeMovementLimits();
+    if (!isDogBeingWalked) {
+      isDogBeingWalked = true;
+      $isThereDogBeingWalked = true;
+      computeMovementLimits();
+    }
   };
+  // On mouse release, set dog logical and visual position to store data
   const onDogRelease = (): void => {
     if (isDogBeingWalked) {
-      // Set dog logical and visual position to store data
       placement.x = Math.round((movementCoordinates.x - placement.width * $cellWidth / 2) / $cellWidth);
       placement.y = Math.round((movementCoordinates.y - placement.height * $cellWidth / 2) / $cellWidth);
       movementCoordinates = { x: (placement.x + placement.width/2) * $cellWidth, y: (placement.y + placement.height/2) * $cellWidth };
       isDogBeingWalked = false;
+      $isThereDogBeingWalked = false;
     }
   };
-  const onDogMove = ({ pageX, pageY }): void => {
-    if (isDogBeingWalked) {
-      // Set dog visual position to mouse
+  // On mouse move when holding, set dog visual position to mouse
+  const onDogMove = (event): void => {
+    if (isDogBeingWalked && event.target?.classList?.contains('dog-container')) {
       movementCoordinates = {
-        x: Math.min((movementLimits.x2 + placement.width/2) * $cellWidth, Math.max((movementLimits.x1 + placement.width/2) * $cellWidth, pageX)),
-        y: Math.min((movementLimits.y2 + placement.height/2) * $cellWidth, Math.max((movementLimits.y1 + placement.height/2) * $cellWidth, pageY)),
+        x: Math.min((movementLimits.x2 + placement.width/2) * $cellWidth, Math.max((movementLimits.x1 + placement.width/2) * $cellWidth, event.offsetX)),
+        y: Math.min((movementLimits.y2 + placement.height/2) * $cellWidth, Math.max((movementLimits.y1 + placement.height/2) * $cellWidth, event.offsetY)),
       };
     }
   };
@@ -67,6 +71,7 @@
 <div 
   class="dog"
   class:rocket="{isRocketDog}"
+  class:unselectable="{$isThereDogBeingWalked}"
   style="
     left: {movementCoordinates.x}px; 
     top: {movementCoordinates.y}px;
@@ -88,5 +93,9 @@
 
   .dog.rocket {
     background: crimson;
+  }
+
+  .dog.unselectable {
+    pointer-events: none;
   }
 </style>
