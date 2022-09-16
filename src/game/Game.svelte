@@ -1,22 +1,33 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import type { LevelSettings } from '../data/models';
-  import { goal, gridSize, isGoalReached, otherDogs, rocketDog } from '../data/store';
+  import type { LevelSettings } from './models';
+  import { goal, gridSize, isThereDogBeingWalked, otherDogs, rocketDog } from './store';
   import Dog from './Dog.svelte';
   import Goal from './Goal.svelte';
   import Grid from './Grid.svelte';
+  import { currentLevelSettings } from '../state';
 
   export let levelSettings: LevelSettings;
+  let isLevelInitialized: boolean = false;
 
   onMount(() => {
+    $isThereDogBeingWalked = false;
     $gridSize= levelSettings.gridSize;
-    $rocketDog = levelSettings.rocketDog;
-    $otherDogs = levelSettings.otherDogs;
-  })
+    $goal = levelSettings.goal;
+    $rocketDog = {...levelSettings.rocketDog};
+    $otherDogs = levelSettings.otherDogs.map(dog => ({ ...dog }));
+    isLevelInitialized = true;
+  });
+
+  const backToMenu = () => {
+    $currentLevelSettings = null;
+  };;
 </script>
 
 <div class="game">
+  <span on:click={backToMenu} class="back">Back to the menu</span>
   <Grid>
+    {#if isLevelInitialized}
     <div class="dog-container">
       <!-- My (rocket) dog -->
       {#if $rocketDog}
@@ -30,17 +41,25 @@
         <Dog bind:placement={otherDog} />
       {/each}
     </div>
+    {/if}
   </Grid>
-
-    {$isGoalReached}
 </div>
 
 <style>
   .game {
     position: relative;
     width: 100%;
-    height: 100%;
     height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .back {
+    cursor: pointer;
+  }
+  .back:hover {
+    text-decoration: underline;
   }
 
   .dog-container {

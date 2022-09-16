@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { gridSize } from '../data/store';
+  import { gridSize } from './store';
   import Cell from './Cell.svelte'
 
   const preventDefault = (event): void => {
@@ -25,7 +25,7 @@
     flex-direction: column;
     box-sizing: border-box;
     position: relative;
-    margin: auto;
+    margin: 0;
     padding: 8px;
     width: fit-content;
   }

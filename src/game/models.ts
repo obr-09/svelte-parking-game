@@ -26,4 +26,5 @@ export interface LevelSettings {
   gridSize: GridData;
   rocketDog: DogPlacement;
   otherDogs: DogPlacement[];
+  goal: DogPlacement;
 }

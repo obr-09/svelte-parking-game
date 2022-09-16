@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-import { cellWidth } from "../data/store";
+import { cellWidth } from "./store";
 </script>
 
 <div

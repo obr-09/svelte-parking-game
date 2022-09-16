@@ -1,4 +1,4 @@
-import { derived, writable, type Writable } from "svelte/store";
+import { derived, writable } from "svelte/store";
 import type { DogPlacement, GridData } from "./models";
 import { getAllDogCoordinates } from "./utils";
 
@@ -30,5 +30,5 @@ export const gridOccupiedSpace = derived(([gridBaseSpace, otherDogs, rocketDog])
 });
 
 // Goal
-export const goal = writable<DogPlacement>({ x: 8, y: 2, width: 2, height: 1 });
+export const goal = writable<DogPlacement>();
 export const isGoalReached = derived([rocketDog, goal], ([$rocketDog, $goal]) => $rocketDog?.x === $goal.x && $rocketDog?.y === $goal.y);

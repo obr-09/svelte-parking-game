@@ -2,15 +2,17 @@
 
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
-  import type { Coordinates, DogPlacement, MovementLimits } from "../data/models";
-  import { cellWidth, gridOccupiedSpace, gridSize, isThereDogBeingWalked } from "../data/store";
+  import type { Coordinates, DogPlacement, MovementLimits } from "./models";
+  import { cellWidth, gridOccupiedSpace, gridSize, isThereDogBeingWalked } from "./store";
 
   export let placement: DogPlacement;
   export let isRocketDog: boolean = false;
 
-  let isDogBeingWalked: boolean = false;
+  let isDogBeingWalked: boolean;
+  $: isDogBeingWalked = false;
   let movementLimits: MovementLimits;
-  let movementCoordinates: Coordinates = { x: (placement.x + placement.width/2) * $cellWidth, y: (placement.y + placement.height/2) * $cellWidth };
+  let movementCoordinates: Coordinates;
+  $: movementCoordinates = { x: (placement.x + placement.width/2) * $cellWidth, y: (placement.y + placement.height/2) * $cellWidth };
 
 
   onMount(() => {
