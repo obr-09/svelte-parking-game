@@ -2,10 +2,10 @@
 
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
-  import type { Coordinates, DogPlacement, MovementLimits } from "./models";
+  import type { Coordinates, SquarePlacement, MovementLimits } from "./models";
   import { cellWidth, gridOccupiedSpace, gridSize, isGoalReached, isThereDogBeingWalked, moveCount } from "./store";
 
-  export let placement: DogPlacement;
+  export let placement: SquarePlacement;
   export let isRocketDog: boolean = false;
 
   let isDogBeingWalked: boolean;
@@ -34,7 +34,7 @@
   // On mouse release, set dog logical and visual position to store data
   const onDogRelease = (): void => {
     if (isDogBeingWalked) {
-      const placementBefore: DogPlacement = {...placement};
+      const placementBefore: SquarePlacement = {...placement};
       placement.x = Math.round((movementCoordinates.x - placement.width * $cellWidth / 2) / $cellWidth);
       placement.y = Math.round((movementCoordinates.y - placement.height * $cellWidth / 2) / $cellWidth);
       movementCoordinates = { x: (placement.x + placement.width/2) * $cellWidth, y: (placement.y + placement.height/2) * $cellWidth };
@@ -91,6 +91,7 @@
     position: absolute;
     background: var(--stationaryDog);
     box-sizing: border-box;
+    border-radius: 25px;
     transform: translate(-50%, -50%);
     z-index: 1;
   }

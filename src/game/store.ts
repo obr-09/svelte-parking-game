@@ -1,11 +1,15 @@
 import { derived, writable } from "svelte/store";
-import type { DogPlacement, GridData } from "./models";
+import type { SquarePlacement, GridData } from "./models";
 import { getAllDogCoordinates } from "./utils";
 
 
-// Dogs positions
-export const otherDogs = writable<DogPlacement[]>([]);
-export const rocketDog = writable<DogPlacement | undefined>();
+// Dogs & walls positions
+export const otherDogs = writable<SquarePlacement[]>([]);
+export const rocketDog = writable<SquarePlacement | undefined>();
+export const walls = writable<SquarePlacement[]>([]);
+export const obstacles = derived(([otherDogs, rocketDog, walls]), 
+  ([$otherDogs, $rocketDog, $walls]) => ([...$otherDogs, $rocketDog, ...$walls])
+);
 export const isThereDogBeingWalked = writable<boolean>(false);
 
 // Level grid info
@@ -14,15 +18,10 @@ export const cellWidth = writable(64);
 const gridBaseSpace = derived(gridSize, $gridSize => (
   Array.from(Array($gridSize.y).keys()).map(() => Array.from(Array($gridSize.x).keys()).map(() => false))
 ));
-export const gridOccupiedSpace = derived(([gridBaseSpace, otherDogs, rocketDog]), ([$gridBaseSpace, $otherDogs, $rocketDog]) => {
+export const gridOccupiedSpace = derived(([gridBaseSpace, obstacles]), ([$gridBaseSpace, $obstacles]) => {
   const grid = [...$gridBaseSpace.map(gridRow => ([...gridRow]))];
-  if ($rocketDog) {
-    getAllDogCoordinates($rocketDog).forEach(({ x, y }) => {
-      grid[y][x] = true;
-    });
-  }
-  $otherDogs.forEach(otherDog => {
-    getAllDogCoordinates(otherDog).forEach(({ x, y }) => {
+  $obstacles.forEach(obstacle => {
+    getAllDogCoordinates(obstacle).forEach(({ x, y }) => {
       grid[y][x] = true;
     });
   });
@@ -30,6 +29,6 @@ export const gridOccupiedSpace = derived(([gridBaseSpace, otherDogs, rocketDog])
 });
 
 // Goal
-export const goal = writable<DogPlacement>();
+export const goal = writable<SquarePlacement>();
 export const isGoalReached = derived([rocketDog, goal], ([$rocketDog, $goal]) => $rocketDog?.x === $goal.x && $rocketDog?.y === $goal.y);
 export const moveCount = writable<number>(0);

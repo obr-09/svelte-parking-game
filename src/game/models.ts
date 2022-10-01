@@ -1,4 +1,4 @@
-export interface DogPlacement {
+export interface SquarePlacement {
   x: number;
   y: number;
   width: number;
@@ -24,7 +24,8 @@ export interface MovementLimits {
 
 export interface LevelSettings {
   gridSize: GridData;
-  rocketDog: DogPlacement;
-  otherDogs: DogPlacement[];
-  goal: DogPlacement;
+  rocketDog: SquarePlacement;
+  otherDogs: SquarePlacement[];
+  walls: SquarePlacement[];
+  goal: SquarePlacement;
 }

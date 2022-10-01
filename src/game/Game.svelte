@@ -1,12 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { LevelSettings } from './models';
-  import { goal, gridSize, isThereDogBeingWalked, moveCount, otherDogs, rocketDog } from './store';
+  import { goal, gridSize, isThereDogBeingWalked, moveCount, otherDogs, rocketDog, walls } from './store';
   import Dog from './Dog.svelte';
   import Goal from './Goal.svelte';
   import Grid from './Grid.svelte';
   import VictoryOverlay from './VictoryOverlay.svelte';
   import { currentLevelSettings } from '../state';
+  import Wall from './Wall.svelte';
 
   export let levelSettings: LevelSettings;
   let isLevelInitialized: boolean = false;
@@ -21,6 +22,7 @@
     $goal = levelSettings.goal;
     $rocketDog = {...levelSettings.rocketDog};
     $otherDogs = levelSettings.otherDogs.map(dog => ({ ...dog }));
+    $walls = levelSettings.walls.map(wall => ({ ...wall }));
     isLevelInitialized = true;
     $moveCount = 0;
   }
@@ -43,6 +45,9 @@
       {/if}
       {#each $otherDogs as otherDog }
         <Dog bind:placement={otherDog} />
+      {/each}
+      {#each levelSettings.walls as wall }
+        <Wall bind:placement={wall} />
       {/each}
       {#if $goal}
         <Goal bind:placement={$goal} />

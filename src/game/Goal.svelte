@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import type { DogPlacement } from "./models";
+  import type { SquarePlacement } from "./models";
   import { cellWidth, isGoalReached } from "./store";
 
-  export let placement: DogPlacement;
+  export let placement: SquarePlacement;
 
   // let barkAudios: HTMLAudioElement[];
   // $: barkAudios = [new Audio('bark.ogg'), new Audio('bark.ogg')]
