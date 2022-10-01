@@ -1,15 +1,24 @@
+:root {
+  --primaryBackground: #dedce7;
+  --primaryEdges: #A693FD;
+  --secondaryBackground: #f4fec5;
+  --mainDog: #fabe7b;
+  --stationaryDog: #deadf0;
+  --dogCarpet: #f4fec5;
+  --fontColor: #352512;
+}
 
 html, body {
   width: 100%;
   height: 100%;
   margin: 0;
+  color: var(--fontColor);
 }
 
 #app {
   width: 100%;
   height: 100%;
-  background: darkslategrey;
-  color: white;
+  background: var(--secondaryBackground);
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 

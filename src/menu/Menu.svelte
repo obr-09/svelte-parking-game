@@ -14,10 +14,10 @@
 </script>
 
 <div class="menu">
-  <h2>Levels:</h2>
+  <h2>Choose your level</h2>
   <ul class="levels">
     {#each Object.keys($storedLevels) as storedLevel}
-      <li class="level" on:click={() => loadLevel(storedLevel)}>{storedLevel}</li>
+      <li class="level"><button on:click={() => loadLevel(storedLevel)}>{storedLevel}</button></li>
     {/each}
   </ul>
 </div>
@@ -28,10 +28,12 @@
     width: 400px;
     margin: auto;
     flex-direction: column;
+    text-align: center;
   }
 
   .levels {
-    padding-left: 20px;
+    padding: 0;
+    list-style: none;
   }
 
   .level {

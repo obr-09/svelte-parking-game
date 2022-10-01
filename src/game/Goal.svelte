@@ -26,8 +26,8 @@
   style="
     left: {(placement.x + placement.width/2) * $cellWidth}px; 
     top: {(placement.y + placement.height/2) * $cellWidth}px;
-    width: {placement.width * $cellWidth}px;
-    height: {placement.height * $cellWidth}px;
+    width: {placement.width * $cellWidth - 2}px;
+    height: {placement.height * $cellWidth - 2}px;
   "
 >
 </div>
@@ -37,7 +37,7 @@
     position: absolute;
     box-sizing: border-box;
     transform: translate(-50%, -50%);
-    background: lightcoral;
+    background: var(--dogCarpet);
     pointer-events: none;
   }
 </style>

@@ -32,3 +32,4 @@ export const gridOccupiedSpace = derived(([gridBaseSpace, otherDogs, rocketDog])
 // Goal
 export const goal = writable<DogPlacement>();
 export const isGoalReached = derived([rocketDog, goal], ([$rocketDog, $goal]) => $rocketDog?.x === $goal.x && $rocketDog?.y === $goal.y);
+export const moveCount = writable<number>(0);

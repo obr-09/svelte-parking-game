@@ -3,7 +3,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import type { Coordinates, DogPlacement, MovementLimits } from "./models";
-  import { cellWidth, gridOccupiedSpace, gridSize, isThereDogBeingWalked } from "./store";
+  import { cellWidth, gridOccupiedSpace, gridSize, isGoalReached, isThereDogBeingWalked, moveCount } from "./store";
 
   export let placement: DogPlacement;
   export let isRocketDog: boolean = false;
@@ -25,7 +25,7 @@
   });
 
   const onDogHold = () => {
-    if (!isDogBeingWalked) {
+    if (!isDogBeingWalked && !$isGoalReached) {
       isDogBeingWalked = true;
       $isThereDogBeingWalked = true;
       computeMovementLimits();
@@ -34,11 +34,15 @@
   // On mouse release, set dog logical and visual position to store data
   const onDogRelease = (): void => {
     if (isDogBeingWalked) {
+      const placementBefore: DogPlacement = {...placement};
       placement.x = Math.round((movementCoordinates.x - placement.width * $cellWidth / 2) / $cellWidth);
       placement.y = Math.round((movementCoordinates.y - placement.height * $cellWidth / 2) / $cellWidth);
       movementCoordinates = { x: (placement.x + placement.width/2) * $cellWidth, y: (placement.y + placement.height/2) * $cellWidth };
       isDogBeingWalked = false;
       $isThereDogBeingWalked = false;
+
+      if (placement.x !== placementBefore.x || placement.y !== placementBefore.y)
+        $moveCount++;
     }
   };
   // On mouse move when holding, set dog visual position to mouse
@@ -76,8 +80,8 @@
   style="
     left: {movementCoordinates.x}px; 
     top: {movementCoordinates.y}px;
-    width: {placement.width * $cellWidth}px;
-    height: {placement.height * $cellWidth}px;
+    width: {placement.width * $cellWidth - 2}px;
+    height: {placement.height * $cellWidth - 2}px;
   "
   on:mousedown|preventDefault={onDogHold}
 />
@@ -85,15 +89,14 @@
 <style>
   .dog {
     position: absolute;
-    background: sandybrown;
-    border: 1px solid peru;
+    background: var(--stationaryDog);
     box-sizing: border-box;
     transform: translate(-50%, -50%);
     z-index: 1;
   }
 
   .dog.rocket {
-    background: crimson;
+    background: var(--mainDog);
   }
 
   .dog.unselectable {

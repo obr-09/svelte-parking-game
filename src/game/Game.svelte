@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { LevelSettings } from './models';
-  import { goal, gridSize, isThereDogBeingWalked, otherDogs, rocketDog } from './store';
+  import { goal, gridSize, isThereDogBeingWalked, moveCount, otherDogs, rocketDog } from './store';
   import Dog from './Dog.svelte';
   import Goal from './Goal.svelte';
   import Grid from './Grid.svelte';
@@ -11,21 +11,29 @@
   let isLevelInitialized: boolean = false;
 
   onMount(() => {
+    initLevel();
+  });
+
+  const initLevel = () => {
     $isThereDogBeingWalked = false;
     $gridSize= levelSettings.gridSize;
     $goal = levelSettings.goal;
     $rocketDog = {...levelSettings.rocketDog};
     $otherDogs = levelSettings.otherDogs.map(dog => ({ ...dog }));
     isLevelInitialized = true;
-  });
+    $moveCount = 0;
+  }
 
   const backToMenu = () => {
     $currentLevelSettings = null;
-  };;
+  };
+
+  const restartLevel = () => {
+    initLevel();
+  };
 </script>
 
 <div class="game">
-  <span on:click={backToMenu} class="back">Back to the menu</span>
   <Grid>
     {#if isLevelInitialized}
     <div class="dog-container">
@@ -43,6 +51,11 @@
     </div>
     {/if}
   </Grid>
+  <div class="subtext">
+    <span class="moveCount">{$moveCount} moves</span>
+    <span on:click={restartLevel} class="restart">Restart</span>
+    <span on:click={backToMenu} class="back">Back to the menu</span>
+  </div>
 </div>
 
 <style>
@@ -55,10 +68,15 @@
     align-items: center;
   }
 
-  .back {
-    cursor: pointer;
+  .moveCount {
+    font-style: italic;
   }
-  .back:hover {
+
+  .back, .restart {
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .back:hover, .restart:hover {
     text-decoration: underline;
   }
 
@@ -69,5 +87,14 @@
     bottom: 0;
     left: 0;
     margin: 8px;
+  }
+
+  .subtext {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .subtext span {
+    margin: 0 16px;
   }
 </style>

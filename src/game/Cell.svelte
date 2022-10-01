@@ -14,8 +14,8 @@ import { cellWidth } from "./store";
 
 <style>
   .cell {
-    background: lightcyan;
-    border: 1px solid royalblue;
+    background: var(--primaryBackground);
+    border: 1px solid var(--primaryEdges);
     box-sizing: border-box;
   }
 </style>
