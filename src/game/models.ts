@@ -23,6 +23,7 @@ export interface MovementLimits {
 }
 
 export interface LevelSettings {
+  name: string;
   gridSize: GridData;
   rocketDog: SquarePlacement;
   otherDogs: SquarePlacement[];

@@ -2,23 +2,23 @@
   import { currentLevelSettings } from "../state";
   import { onMount } from "svelte";
   import { storedLevels } from "./store";
-  import { getDefaultLevels } from "./utils";
+  import { getLevelList } from "./data";
 
   const loadLevel = (levelSetting) => {
-    $currentLevelSettings = $storedLevels[levelSetting];
+    $currentLevelSettings = levelSetting;
   };
 
   onMount(() => {
-    $storedLevels = getDefaultLevels();
+    $storedLevels = getLevelList();
   })
 </script>
 
 <div class="menu">
   <h2 class="hint">Choose your level</h2>
   <ul class="levels">
-    {#each Object.keys($storedLevels) as storedLevel}
+    {#each $storedLevels as storedLevel}
       <li>
-        <button class="level" on:click={() => loadLevel(storedLevel)}>{storedLevel}</button>
+        <button class="level" on:click={() => loadLevel(storedLevel)}>{storedLevel.name}</button>
       </li>
     {/each}
   </ul>
