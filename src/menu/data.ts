@@ -1,6 +1,8 @@
 import type { LevelSettings } from "src/game/models";
-import bobox from "./levels/LivingInABox.json";
+import inTooDeep from "./levels/InTooDeep.json";
+import livingInABox from "./levels/LivingInABox.json";
+import haveACigar from "./levels/HaveACigar.json";
 
 export const getLevelList = (): LevelSettings[] => {
-  return [bobox]
+  return [inTooDeep, livingInABox, haveACigar]
 }

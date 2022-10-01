@@ -14,7 +14,7 @@
 </script>
 
 <div class="menu">
-  <h2 class="hint">Choose your level</h2>
+  <h2 class="hint">Level selection</h2>
   <ul class="levels">
     {#each $storedLevels as storedLevel}
       <li>

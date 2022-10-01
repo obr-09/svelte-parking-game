@@ -32,6 +32,7 @@
 
   .message {
     font-size: 36px;
+    text-align: center;
     font-weight: bold;
     color: white;
     z-index: 2;

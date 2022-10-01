@@ -1,13 +1,19 @@
 {
   "name": "Living in a box",
-  "gridSize": { "x": 15, "y": 8 },
-  "rocketDog": {"x": 2, "y": 2, "width": 2, "height": 1},
+  "gridSize": { "x": 7, "y": 6 },
+  "rocketDog": {"x": 0, "y": 2, "width": 2, "height": 1},
   "otherDogs": [
-    { "x": 6, "y": 1, "width": 1, "height": 3 },
-    { "x": 2, "y": 4, "width": 3, "height": 1 }
+    { "x": 0, "y": 0, "width": 1, "height": 2 },
+    { "x": 2, "y": 0, "width": 3, "height": 1 },
+    { "x": 2, "y": 1, "width": 1, "height": 3 },
+    { "x": 0, "y": 3, "width": 1, "height": 2 },
+    { "x": 1, "y": 4, "width": 2, "height": 1 },
+    { "x": 3, "y": 3, "width": 1, "height": 2 },
+    { "x": 4, "y": 2, "width": 1, "height": 2 }
   ],
   "walls": [
-    { "x": 3, "y": 6, "width": 5, "height": 2 }
+    { "x": 5, "y": 0, "width": 2, "height": 2 },
+    { "x": 5, "y": 3, "width": 2, "height": 3 }
   ],
-  "goal": { "x": 8, "y": 2, "width": 2, "height": 1 }
+  "goal": { "x": 5, "y": 2, "width": 2, "height": 1 }
 }
