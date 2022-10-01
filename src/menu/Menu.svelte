@@ -14,10 +14,12 @@
 </script>
 
 <div class="menu">
-  <h2>Choose your level</h2>
+  <h2 class="hint">Choose your level</h2>
   <ul class="levels">
     {#each Object.keys($storedLevels) as storedLevel}
-      <li class="level"><button on:click={() => loadLevel(storedLevel)}>{storedLevel}</button></li>
+      <li>
+        <button class="level" on:click={() => loadLevel(storedLevel)}>{storedLevel}</button>
+      </li>
     {/each}
   </ul>
 </div>
@@ -31,6 +33,10 @@
     text-align: center;
   }
 
+  .hint {
+    font-weight: normal;
+  }
+
   .levels {
     padding: 0;
     list-style: none;
@@ -38,8 +44,18 @@
 
   .level {
     cursor: pointer;
+    color: var(--fontColor);
+    font-weight: bold;
+    background-color: #fde7ce;
+    border: 2px solid #fbd4a8;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    padding: 4px 12px;
+    min-width: 200px;
   }
   .level:hover {
     text-decoration: underline;
+    background-color: #fdebd7;
+    transition: background 0.5s;
   }
 </style>

@@ -5,6 +5,7 @@
   import Dog from './Dog.svelte';
   import Goal from './Goal.svelte';
   import Grid from './Grid.svelte';
+  import VictoryOverlay from './VictoryOverlay.svelte';
   import { currentLevelSettings } from '../state';
 
   export let levelSettings: LevelSettings;
@@ -37,18 +38,17 @@
   <Grid>
     {#if isLevelInitialized}
     <div class="dog-container">
-      <!-- My (rocket) dog -->
       {#if $rocketDog}
         <Dog bind:placement={$rocketDog} isRocketDog />
       {/if}
-      {#if $goal}
-        <Goal bind:placement={$goal} />
-      {/if}
-      <!-- Other people's dogs -->
       {#each $otherDogs as otherDog }
         <Dog bind:placement={otherDog} />
       {/each}
+      {#if $goal}
+        <Goal bind:placement={$goal} />
+      {/if}
     </div>
+    <VictoryOverlay />
     {/if}
   </Grid>
   <div class="subtext">

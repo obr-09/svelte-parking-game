@@ -4,7 +4,7 @@
   --secondaryBackground: #f4fec5;
   --mainDog: #fabe7b;
   --stationaryDog: #deadf0;
-  --dogCarpet: #f4fec5;
+  --dogCarpet: #eeedf3;
   --fontColor: #352512;
 }
 
@@ -12,13 +12,13 @@ html, body {
   width: 100%;
   height: 100%;
   margin: 0;
+  background: var(--secondaryBackground);
   color: var(--fontColor);
 }
 
 #app {
   width: 100%;
   height: 100%;
-  background: var(--secondaryBackground);
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
