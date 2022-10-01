@@ -1,7 +1,5 @@
 <script>
-
   import { isGoalReached, moveCount } from "./store";
-
 </script>
 
 
@@ -14,7 +12,7 @@
 </div>
 {#if $isGoalReached}
   <span class="message">
-    Dog parked in {$moveCount} moves!
+    Parked in {$moveCount} moves!
   </span>
 {/if}
 
@@ -27,6 +25,7 @@
     right: 0;
     top: 0;
     bottom: 0;
+    margin: 8px;
     z-index: 1;
     pointer-events: none;
   }

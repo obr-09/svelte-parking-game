@@ -5,20 +5,20 @@
 
   export let placement: DogPlacement;
 
-  let barkAudios: HTMLAudioElement[];
-  $: barkAudios = [new Audio('bark.ogg'), new Audio('bark.ogg')]
+  // let barkAudios: HTMLAudioElement[];
+  // $: barkAudios = [new Audio('bark.ogg'), new Audio('bark.ogg')]
 
 
-  onMount(() => {
-    isGoalReached.subscribe(barkVictory);
-  });
+  // onMount(() => {
+  //   isGoalReached.subscribe(barkVictory);
+  // });
 
-  const barkVictory = (isReached: boolean): void => {
-    if (isReached) {
-      barkAudios[0].play();
-      setTimeout(() => barkAudios[1].play(), 320);
-    }
-  };
+  // const barkVictory = (isReached: boolean): void => {
+  //   if (isReached) {
+      // barkAudios[0].play();
+      // setTimeout(() => barkAudios[1].play(), 320);
+    // }
+  // };
 </script>
 
 <div 
